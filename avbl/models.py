@@ -1,11 +1,11 @@
 from django.db import models
-import numpy as np
+#import numpy as np
 
 # Create your models here.
 
 class Court(models.Model):
     court_location = models.CharField(max_length = 1000)
-    court_id = models.IntegerField()	#keep court_id same as pk
+    court_id = models.IntegerField()
     is_occupied = models.BooleanField(default = False)
 
     def __str__(self):
@@ -13,5 +13,11 @@ class Court(models.Model):
 
 
 class Table(models.Model):
-	abc = np.empty(shape = (0, 1))
+	abc = []
 	court = models.ForeignKey(Court, on_delete = models.CASCADE)
+
+	def __str__(self):
+		return str(len(self.abc))
+
+	def apnd_value(self, time, rpi_data):
+		self.abc.append([time, rpi_data])
