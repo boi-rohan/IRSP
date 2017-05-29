@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load staticfiles %}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Squash Court Availablity</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'avbl/Index/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'avbl/Index/css/1-col-portfolio.css' %}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'avbl:index' %}">Squash Court Availablity</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://gymkhana.iitb.ac.in/~sports/"><img src="{% static 'avbl/Images/iitb_sports_logo_2.png' %}" style="height:20px;width:35px;" alt = "IITB Sports"></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Squash Courts
+                    <small>IIT Bombay</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+{% for court in all_courts %}
+        <!-- court i -->
+        <div class="row">
+            <div class="col-md-7">
+                <a href="{% url 'avbl:detail' court.id %}">
+                    <img class="img-responsive" src ="/static/avbl/Images/{{ court.id }}/index.jpg" alt="image of court id {{ court.id }}" >
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3>Court ID : {{ court.id }}</h3>
+                <h4>Location : {{ court.court_location }}</h4>
+                <h4><strong>Available [as of {{ court.last_time }}; {{ court.last_date }}]: {{ court.is_occupied }}</strong></h4>
+                <a class="btn btn-primary" href="{% url 'avbl:detail' court.id %}">More details<span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+{% endfor %}        
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="{% static 'avbl/Index/js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'avbl/Index/js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

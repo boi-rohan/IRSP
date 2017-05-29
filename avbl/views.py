@@ -1,22 +1,34 @@
+from __future__ import unicode_literals
 from django.shortcuts import render
+from .models import Court, DateTimeValue
 from django.http import HttpResponse
-from .models import Court, Table
-#import numpy as np
-# Create your views here.
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import DateTimeValueSerializer
 
 def index(request):
-    return HttpResponse("<h1>avlb app homepage</h1>")
+	all_courts = Court.objects.all()
+	return render(request, 'avbl/index.html', {'all_courts':all_courts})
 
 
 def detail(request, court_id):
-    return HttpResponse("<h1>This is court number :  " + str(court_id) + "</h1>")
+	court = Court.objects.get(court_id = court_id)
+	return render(request, 'avbl/detail.html', {'court':court})
 
-def apnd_table(request, time, rpi_data, court_pk):
-	court = Court.objects.get(pk = court_pk)
-	table = court.table_set.get(pk = 1)
-	#np.vstack((table.abc, np.array([time, rpi_data])))
-	table.apnd_value(time, rpi_data)
-	table.save()
+
+def add_value(request, date, time, rpi_data, court_id):
+	court = Court.objects.get(court_id = court_id)
+	new_date_time = DateTimeValue(date = date, time = time, value = rpi_data, court = court)
+	new_date_time.save()
 	court.is_occupied = rpi_data
 	court.save()
-	return HttpResponse("<h1>appended</h1>")
+	return HttpResponse("<h1>added " + date + "    " + time + "    " + rpi_data + "</h1>")
+
+class DateTimeValueList(APIView):
+
+	def get(self, request):
+		
+
+	def post(self):
+		
