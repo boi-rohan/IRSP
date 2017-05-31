@@ -79,13 +79,13 @@
             <div class="col-md-5">
                 <h3>Court ID : {{ court.id }}</h3>
                 <h4>Location : {{ court.court_location }}</h4>
-                <h4><strong>Available [as of {{ court.last_time }}; {{ court.last_date }}]: {{ court.is_occupied }}</strong></h4>
+                <h4><strong>Available </strong>[as of {{ court.last_date }}; {{ court.last_time }}]<strong>: {{ court.is_occupied }}</strong></h4>
                 <a class="btn btn-primary" href="{% url 'avbl:detail' court.id %}">More details<span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
         <!-- /.row -->
         <hr>
-{% endfor %}        
+{% endfor %}
 
     </div>
     <!-- /.container -->

@@ -8,7 +8,7 @@ Function views
     2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+    2. Add a URL to urlpatterns :  url(r'^$', Home.as_view(), name='home')
 Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
@@ -16,9 +16,17 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from avbl import views
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^avbl/', include('avbl.urls',  namespace = "avbl")),
     url(r'^$', views.index, name = 'index'),
+
+    #API
+    url(r'^api/court/$', views.CourtList.as_view()),
+    url(r'^api/post_datetimevalue/$', views.DateTimeValueList.as_view()),
+
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
