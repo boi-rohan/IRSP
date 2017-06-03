@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status, generics, permissions
 from .serializers import DateTimeValueSerializer, CourtSerializer
 from .permissions import IsOwnerOrReadOnly
+import json, urllib2
 
 def index(request):
 	all_courts = Court.objects.all()
@@ -27,8 +28,10 @@ def add_value(request, date, time, rpi_data, court_id):
 	return HttpResponse("<h1>added " + date + "    " + time + "    " + rpi_data + "</h1>")
 
 
+#API
+
 class CourtList(APIView):
-#/api/
+#/api/court/
 	def get(self, request, format = None):
 		all_courts = Court.objects.all()
 		serializer = CourtSerializer(all_courts, many = True)

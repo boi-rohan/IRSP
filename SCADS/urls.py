@@ -15,17 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from avbl import views
+from avbl import views as avbl_views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^avbl/', include('avbl.urls',  namespace = "avbl")),
-    url(r'^$', views.index, name = 'index'),
+    url(r'^$', avbl_views.index, name = 'index'),
 
     #API
-    url(r'^api/court/$', views.CourtList.as_view()),
-    url(r'^api/post_datetimevalue/$', views.DateTimeValueList.as_view()),
+    url(r'^api/court/$', avbl_views.CourtList.as_view()),
+    url(r'^api/post_datetimevalue/$', avbl_views.DateTimeValueList.as_view()),
 
 ]
 

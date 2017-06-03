@@ -1,4 +1,5 @@
 from django.db import models
+import json, urllib2
 #import numpy as np
 
 # Create your models here.
@@ -7,7 +8,7 @@ class Court(models.Model):
     court_location = models.CharField(max_length = 1000, default = '')
     court_id = models.IntegerField()
     is_occupied = models.BooleanField(default = False)
-    image_src = models.CharField(max_length = 1000, default = '')
+    #image_src = models.CharField(max_length = 1000, default = '')
 
     def __str__(self):
     	return "Court ID = " + str(self.court_id)
@@ -19,6 +20,12 @@ class Court(models.Model):
     def last_date(self):
     	d = (self.datetimevalue_set.order_by('-pk')[0]).date_time.date()
     	return d
+
+    def update_value(self, request):
+    	response = urllib2.urlopen(request)
+        self.is_occupied = (json.load(response))["value"]
+        self.save()
+        return
 
 
 class DateTimeValue(models.Model):
