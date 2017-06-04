@@ -56,6 +56,10 @@ class DateTimeValueList(generics.ListCreateAPIView):
 
 	def perform_create(self, serializer):
 		serializer.save(owner = self.request.user)
+		court = Court.objects.get(pk = self.request.data['court'])
+		value = self.request.data['value']
+		court.is_occupied = value
+		court.save()
 
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly,
 							IsOwnerOrReadOnly,)

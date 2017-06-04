@@ -26,6 +26,7 @@ urlpatterns = [
     #API
     url(r'^api/court/$', avbl_views.CourtList.as_view()),
     url(r'^api/post_datetimevalue/$', avbl_views.DateTimeValueList.as_view()),
+    url(r'^api/get_datetimevalue/$', avbl_views.DateTimeValueList.as_view()),
 
 ]
 
